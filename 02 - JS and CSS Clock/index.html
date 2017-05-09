@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>JS + CSS Clock</title>
+    <!--<link rel="stylesheet" href="styles.css">-->
+    <!--<script type="text/javascript" src="script.js"></script>-->
+</head>
+
+<body>
+    <div class="clock">
+        <div class="clock-face">
+            <div class="hand hour-hand"></div>
+            <div class="hand min-hand"></div>
+            <div class="hand second-hand"></div>
+        </div>
+    </div>
+    <!--///////////////////////////////STYLES/////////////////////////////////////-->
+    <!--///////////////////////////////STYLES/////////////////////////////////////-->
+    <!--///////////////////////////////STYLES/////////////////////////////////////-->
+    <style>
+        html {
+            background: #018DED url(http://unsplash.it/1500/1000?image=881&blur=50);
+            background-size: cover;
+            font-family: 'helvetica neue';
+            text-align: center;
+            font-size: 10px;
+        }
+        
+        body {
+            margin: 0;
+            font-size: 2rem;
+            display: flex;
+            flex: 1;
+            min-height: 100vh;
+            align-items: center;
+        }
+        
+        .clock {
+            width: 30rem;
+            height: 30rem;
+            border: 20px solid white;
+            border-radius: 50%;
+            margin: 50px auto;
+            position: relative;
+            padding: 2rem;
+            box-shadow: 0 0 0 4px rgba(0, 0, 0, 0.1), inset 0 0 0 3px #EFEFEF, inset 0 0 10px black, 0 0 10px rgba(0, 0, 0, 0.2);
+        }
+        
+        .clock-face {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            transform: translateY(-3px);
+            /* account for the height of the clock hands */
+        }
+        
+        .hand {
+            width: 50%;
+            height: 6px;
+            background: black;
+            position: absolute;
+            top: 50%;
+            transform-origin: 100%;
+            transform: rotate(90deg);
+            transition: all 0.05s;
+            transition-timing-function: cubic-bezier(0.1, 2.7, 0.58, 1);
+        }
+    </style>
+    <!--///////////////////////////////SCRIPT/////////////////////////////////////-->
+    <!--///////////////////////////////SCRIPT/////////////////////////////////////-->
+    <!--///////////////////////////////SCRIPT/////////////////////////////////////-->
+    <script>
+        console.log("Script.js is run");
+
+        const secondHand = document.querySelector('.second-hand'); // declaring the secondHand
+        const minHand = document.querySelector('.min-hand');
+        const hourHand = document.querySelector('.hour-hand');
+
+        function setDate() {
+            // console.log("testr"); // increments testr adding numbers with each second
+            const now = new Date(); // gets current date
+            const seconds = now.getSeconds(); // gets seconds of current minute
+            const secondsDegrees = ((seconds / 60) * 360) + 90; // turns seconds of the current minute into a degree, 1st turn into base 100 so at 0% it's 0 degrees and at 100% it's 360 degrees
+            secondHand.style.transform = `rotate(${secondsDegrees}deg)`; // ES6 template literal styles applied to secondHand declared in the const 
+            console.log(seconds); // increments second-numbers on new consoleLog line
+
+            const minutes = now.getMinutes();
+            const minutesDegrees = ((minutes / 60) * 360) + 90;
+            minHand.style.transform = `rotate(${minutesDegrees}deg)`;
+            console.log(minutes);
+
+            const hours = now.getHours();
+            const hoursDegrees = ((hours / 12) * 360) + 90;
+            // const hoursDegrees = (hours * 360);
+            hourHand.style.transform = `rotate(${hoursDegrees}deg)`;
+            console.log(hours);
+        }
+        // need some if/then statements to remove the <CSS_transition: all 0.05s;> when seconds are at 12 o'clock.
+        setInterval(setDate, 1000); // Runs every second/1000ms
+    </script>
+
+</body>
+
+</html>

@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<!--My Code-->
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>JS Drum Kit</title>
+    <link rel="stylesheet" href="style.css">
+    <!--<script src="script.js" charset="utf-8"></script>-->
+</head>
+
+<body>
+    <div>
+        <h1 id="h1message">This works with the script in index.html but not when it's sourced in!!?</h1>
+    </div>
+
+    <div class="keys">
+        <div data-key="65" class="key">
+            <kbd>A</kbd>
+            <span class="sound">clap</span>
+        </div>
+        <div data-key="83" class="key">
+            <kbd>S</kbd>
+            <span class="sound">hihat</span>
+        </div>
+        <div data-key="68" class="key">
+            <kbd>D</kbd>
+            <span class="sound">kick</span>
+        </div>
+        <div data-key="70" class="key">
+            <kbd>F</kbd>
+            <span class="sound">openhat</span>
+        </div>
+        <div data-key="71" class="key">
+            <kbd>G</kbd>
+            <span class="sound">boom</span>
+        </div>
+        <div data-key="72" class="key">
+            <kbd>H</kbd>
+            <span class="sound">ride</span>
+        </div>
+        <div data-key="74" class="key">
+            <kbd>J</kbd>
+            <span class="sound">snare</span>
+        </div>
+        <div data-key="75" class="key">
+            <kbd>K</kbd>
+            <span class="sound">tom</span>
+        </div>
+        <div data-key="76" class="key">
+            <kbd>L</kbd>
+            <span class="sound">tink</span>
+        </div>
+    </div>
+
+    <!--data-something was created so developers could add a made up attribute as needed-->
+    <!--These data-keys call on the div reference above-->
+    <audio data-key="65" src="sounds/clap.wav"></audio>
+    <audio data-key="83" src="sounds/hihat.wav"></audio>
+    <audio data-key="68" src="sounds/kick.wav"></audio>
+    <audio data-key="70" src="sounds/openhat.wav"></audio>
+    <audio data-key="71" src="sounds/boom.wav"></audio>
+    <audio data-key="72" src="sounds/ride.wav"></audio>
+    <audio data-key="74" src="sounds/snare.wav"></audio>
+    <audio data-key="75" src="sounds/tom.wav"></audio>
+    <audio data-key="76" src="sounds/tink.wav"></audio>
+
+
+    <!--<script>
+        // Teaching Example Javascript
+         function removeTransition(e) {
+    if (e.propertyName !== 'transform') return;
+    e.target.classList.remove('playing');
+  }
+
+  function playSound(e) {
+    const audio = document.querySelector(`audio[data-key="${e.keyCode}"]`);
+    const key = document.querySelector(`div[data-key="${e.keyCode}"]`);
+    if (!audio) return;
+
+    key.classList.add('playing');
+    audio.currentTime = 0;
+    audio.play();
+  }
+
+  const keys = Array.from(document.querySelectorAll('.key'));
+  keys.forEach(key => key.addEventListener('transitionend', removeTransition));
+  window.addEventListener('keydown', playSound);
+    </script>-->
+
+    <script>
+        // My code from script.js
+        console.log('script.js is loaded');
+        console.log("clg = console.log");
+        console.log("This is my code followed along with the tutorial.  It is not working as a seperate script file but does work when embedded in the index.html file.  Why??");
+
+        function playSound(e) {
+            // console.log(e.keyCode);
+            const audio = document.querySelector(`audio[data-key="${e.keyCode}"]`); // provides the audio
+            const key = document.querySelector(`.key[data-key="${e.keyCode}"]`); //provides the animation
+            if (!audio) return; // stop function if no key value
+            audio.currentTime = 0; //rewinds to the start for repetitive key play
+            audio.play();
+            // console.log(audio);
+            // console.log(key);
+            key.classList.add('playing'); // adds CSS animation
+            // key.addClass('playing'); // jQuery version of above line
+            // key.classList.remove('playing'); // removes CSS animation
+            // key.classList.toggle('playing'); // toggles CSS animation
+        }
+
+        function removeTransition(e) {
+            // console.log("function removeTransition(e) = ", e);
+            // console.log("function removeTransition(e.propertyName) = ", e.propertyName);
+            if (e.propertyName !== 'transform') return; // not run if not a transform
+            // console.log(this); // <this> is whatever got called (key)
+            this.classList.remove('playing');
+        }
+
+
+        const keys = document.querySelectorAll('.key');
+        // <document.querySelectorAll('.key')> entered into console shows every key & attributes
+        keys.forEach(key => key.addEventListener('transitionend', removeTransition));
+        // keys.addEventListener('transitionend'); cannot be used because the keys are a Node List, not an array.  Must loop over every key and add an event listener.
+        window.addEventListener('keydown', playSound);
+    </script>
+
+</body>
+
+</html>

@@ -1,0 +1,48 @@
+// Place your settings in this file to overwrite default and user settings.
+{
+    // [
+    //     "()",
+    //     "[]",
+    //     "{}",
+    //     "<>", // New bracket
+    //     [ // CSS Color cycle
+    //         "Violet",
+    //         "Light Green",
+    //         "LightSkyBlue"
+    //     ],
+    //     "Red" // Orphaned bracket color
+    // ]
+
+    "window.zoomLevel": 2,
+    "workbench.iconTheme": "vs-seti",
+    "workbench.colorTheme": "Atom One Dark",
+    "git.confirmSync": true,
+    "todohighlight.keywords": [
+        NOTE,
+        Note,
+        note
+    ],
+    "workbench.welcome.enabled": false,
+    "editor.fontSize": 14,
+    "editor.minimap.enabled": true,
+    "editor.wordWrap": "on",
+    "editor.tabSize": 2,
+    "editor.quickSuggestionsDelay": 15,
+    "editor.cursorBlinking": "expand",
+    "editor.cursorStyle": "line",
+    "editor.renderLineHighlight": "all",
+    "editor.dragAndDrop": true,
+    "bracketPairColorizer.forceUniqueOpeningColor": true,
+    "bracketPairColorizer.consecutivePairColors": [
+        "()",
+        "[]",
+        "{}", [
+            "#9700c9", // Purple
+            "#00ff00", // Green
+            "#ff1493" // Blue
+        ],
+        "#ff0000"
+    ],
+
+}
+}
