@@ -81,59 +81,80 @@
 
         // Array.prototype.filter()
         // 1. Filter the list of inventors for those who were born in the 1500's
-        // --
+        console.log("-- #1.  Array.prototype.filter");
         // One way to do this code:
         // const fifteen = inventors.filter(function(inventor) {
         //             if (inventor.year >= 1500 && inventor.year <= 1599) {
         //  return true; // Pulls out all inventors with 'year' between 1500 to 1599
         // });
         // --
-        // Another way to do the code
+        // Another way to do the code:
         const fifteen = inventors.filter(inventor => (inventor.year >= 1500 && inventor.year <= 1599));
 
-        console.log(fifteen);
+        console.log("born in the 1500's = ", fifteen);
         console.table(fifteen);
 
         // Array.prototype.map()
+        // 2. Give us an array of the inventors' first and last names
+        console.log("-- #2.  Array.prototype.map");
         // Map takes in an Array, does something with that array, and then returns a new array but of the same length.
         // Think of Map like a factory machine, it takes in a raw material, stamps it, and then exports the same, altered item.
-        // 2. Give us an array of the inventors' first and last names
         // --
         // One way to do this code:
         //  const fullNames = inventors.map(inventor => inventor.first + " " + inventor.last);
         // --
-        // Another way to do the code
+        // Another way to do the code:
         const fullNames = inventors.map(inventor => `${inventor.first} ${inventor.last}`);
-
-        console.log(fullNames);
+        console.log("Full Names = ", fullNames);
 
         // Array.prototype.sort()
         // 3. Sort the inventors by birthdate, oldest to youngest
-        const ordered = inventors.sort(
-            function(a, b) {
-                if (a.year > b.year) {
-                    return 1;
-                } else {
-                    return -1
-                }
-            }
-        )
-
+        console.log("-- #3.  Array.prototype.sort");
+        // One way to do this code:
+        // const ordered = inventors.sort(
+        //     function(a, b) {
+        //         if (a.year > b.year) {
+        //             return 1;
+        //         } else {
+        //             return -1
+        //         }
+        //     });
+        // Another way to do the code:
+        const ordered = inventors.sort((a, b) => a.year > b.year ? 1 : -1); // Ternary Operator - operator that takes three arguments; 1st=comparison argument, 2nd=result on true comparison, 3rd=result on false comparison. A shortened way of writing an if-else statement. <https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Conditional_Operator>
         console.log("ordered sort = ", ordered);
+        console.table(ordered);
 
         // Array.prototype.reduce()
         // 4. How many years did all the inventors live?
+        console.log("-- #4.  Array.prototype.reduce");
+        // reduce will allows building something on every item of an array
+        // One way to do this code:
+        // var totalYears = 0;
+        // for (var i = 0; i < inventors.length; i++) {
+        //     totalYears += inventors[i].year
+        // }
+        // console.log('totalYears = ', totalYears);
+        // Another way to do the code:
+        const totalYears = inventors.reduce((total, inventor) => {
+            return total + (inventor.passed - inventor.year); // 'return total' is what the total was last time around loop
+        }, 0); // going to give a running total or what is returned from this function last time // Need the 0); because the 1st time through loop there is no total & will be undefined.
+        console.log(totalYears);
 
         // 5. Sort the inventors by years lived
+        console.log("-- #5.  inventors by years lived");
+
 
         // 6. create a list of Boulevards in Paris that contain 'de' anywhere in the name
+        console.log("-- #6.  contain 'de' in the name");
         // https://en.wikipedia.org/wiki/Category:Boulevards_in_Paris
 
 
         // 7. sort Exercise
+        console.log("-- #7.  sort Exercise");
         // Sort the people alphabetically by last name
 
         // 8. Reduce Exercise
+        console.log("-- #8.  Reduce Exercise");
         // Sum up the instances of each of these
         const data = ['car', 'car', 'truck', 'truck', 'bike', 'walk', 'car', 'van', 'bike', 'walk', 'car', 'van', 'car', 'truck'];
     </script>
