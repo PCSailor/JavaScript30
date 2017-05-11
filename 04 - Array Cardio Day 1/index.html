@@ -142,17 +142,61 @@
 
         // 5. Sort the inventors by years lived
         console.log("-- #5.  inventors by years lived");
-
+        // One way to do this code:
+        // const oldest = inventors.sort(function(a, b) {
+        //     const lastGuy = a.passed - a.year;
+        //     const nextGuy = b.passed - b.year;
+        //     if (lastGuy > nextGuy) {
+        //         return -1;
+        //     } else {
+        //         return 1;
+        //     }
+        // });
+        // console.log("inventors by years lived = ", oldest);
+        // Another way to do the code:
+        const oldest = inventors.sort(function(a, b) {
+            const lastGuy = a.passed - a.year;
+            const nextGuy = b.passed - b.year;
+            return lastGuy > nextGuy ? -1 : 1;
+        });
+        console.table(oldest);
 
         // 6. create a list of Boulevards in Paris that contain 'de' anywhere in the name
         console.log("-- #6.  contain 'de' in the name");
         // https://en.wikipedia.org/wiki/Category:Boulevards_in_Paris
+        // var document = document.getElementById('https://en.wikipedia.org/wiki/Category:Boulevards_in_Paris').href; 
+        // research: set a weblink as a javascript const OR var to use with querySelector
+        // 1st need to get the DOM elements out of webpage
+        //Line#1 // const category = document.querySelector('.mw-category'); // querySelector can be called on any DOM element, not just document // VERY IMPORTANT - it returns a NodeList-look at prototype
+        // console.log("Type of category: ", typeof category); // object
+        // console.log("category = ", category); // <div class="mw-category">_</div>
+        // const links = category.querySelectorAll('a'); // #1 // must convert this into an array because a querySelector-NodeList does not have a .map property needed for links.map below // ConsoleLog typeof 'links' shows "object" but it looks like an array [a, a, etc] but is a NodeList identified in the prototype.
+        // const links = Array.from(category.querySelectorAll('a')); // #2 // one way to convert into an array // Looks same as above but prototype now shows array
+        //Line#2 // const links = [...category.querySelectorAll('a')]; // #3 // 'ES6 spread' way to convert into an array // Spread takes every item out of an iterable & put it into the containing array // <https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Spread_operator> <https://rainsoft.io/how-three-dots-changed-javascript/>
+        // console.log(links); // This lists every links on the webpage
+        // const de = links.map(link => link.textContent); // Convert the link list to a list of names // Results in TypeError "links.map is not a function" when 'links' is a NodeList.
+        // Line#3 // const de = links // seperated above line into two, one for map and one for filter
+        //.map(link => link.textContent)
+        //.filter(streetName => streetName.includes('de')); // Filter lint of names for only those containing de
 
+        // So, final code block copied from above: (Enter onto actual webpage console)
+        // const category = document.querySelector('.mw-category'); // Line#1
+        // const links = [...category.querySelectorAll('a')]; // Line#2
+        // const de = links // Line#3
+        //     .map(link => link.textContent)
+        //     .filter(streetName => streetName.includes('de'));
+        // console.log("de ", de);
+        console.log("Enter onto actual webpage console");
 
         // 7. sort Exercise
         console.log("-- #7.  sort Exercise");
         // Sort the people alphabetically by last name
+        const alpha = people.sort(function(lastOne, nextOne) {
+            // console.log("lastOne = " + lastOne + " and " + "nextOne = " + nextOne);
+            // console.log(lastOne);
+            console.log(nextOne);
 
+        });
         // 8. Reduce Exercise
         console.log("-- #8.  Reduce Exercise");
         // Sum up the instances of each of these
