@@ -213,6 +213,17 @@
         console.log("-- #8.  Reduce Exercise");
         // Sum up the instances of each of these
         const data = ['car', 'car', 'truck', 'truck', 'bike', 'walk', 'car', 'van', 'bike', 'walk', 'car', 'van', 'car', 'truck'];
+        // Reduce is one of the most flexible methods but also difficult to understand
+        const transportation = data.reduce(function(obj, item) {
+            console.log("item = ", item); // lists all items
+            if (!obj[item]) { // checking if object key exists
+                obj[item] = 0;
+            }
+            obj[item]++;
+            return obj;
+        }, {})
+        console.log(transportation);
+        // With reduce, you start with a blank object & then every time we loop over it checks to see if there is even a 0 there & if not makes an entry for that object & then goes ahead & increments it.  This makes it easy to add to the object & have it automatically added to the iteration.
     </script>
 </body>
 
