@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Flex Panels 💪</title>
+    <link href='https://fonts.googleapis.com/css?family=Amatic+SC' rel='stylesheet' type='text/css'>
+</head>
+
+<body>
+
+    <!--css-->
+    <style>
+        html {
+            box-sizing: border-box;
+            background: #ffc600;
+            font-family: 'helvetica neue';
+            font-size: 20px;
+            font-weight: 200;
+        }
+
+        body {
+            margin: 0;
+        }
+
+        *,
+        *:before,
+        *:after {
+            box-sizing: inherit;
+        }
+
+        .panels {
+            min-height: 100vh;
+            overflow: hidden;
+            display: flex;
+            /* 01_Adding this code changes display from horizontal to vertical */
+        }
+
+        .panel {
+            background: #6B0F9C;
+            box-shadow: inset 0 0 0 5px rgba(255, 255, 255, 0.1);
+            color: white;
+            text-align: center;
+            align-items: center;
+            /* Safari transitionend event.propertyName === flex */
+            /* Chrome + FF transitionend event.propertyName === flex-grow */
+            transition: font-size 0.7s cubic-bezier(0.61, -0.19, 0.7, -0.11), flex 0.7s cubic-bezier(0.61, -0.19, 0.7, -0.11), background 0.2s;
+            /* animation-type effect resulting in text getting a little bigger or smaller and snapping back into place. */
+            font-size: 20px;
+            background-size: cover;
+            background-position: center;
+            flex: 1;
+            /* 02_Instructs each panel to evenly distribute extra page space between them */
+            justify-content: center;
+            /* 04_centers content left to right */
+            align-items: center;
+            /* 05_ */
+            display: flex;
+            /* 06_Good example of nesting Flex boxes, .panel within .panels, This now makes .panel a Flex item AND a Flex container */
+            flex-direction: column;
+            /* 07_Changes the Flexbox(text) to vertical column held within Flex container(.panels) */
+        }
+
+        .panel1 {
+            background-image: url(https://source.unsplash.com/gYl-UtwNg_I/1500x1500);
+        }
+
+        .panel2 {
+            background-image: url(https://source.unsplash.com/1CD3fd8kHnE/1500x1500);
+        }
+
+        .panel3 {
+            background-image: url(https://images.unsplash.com/photo-1465188162913-8fb5709d6d57?ixlib=rb-0.3.5&q=80&fm=jpg&crop=faces&cs=tinysrgb&w=1500&h=1500&fit=crop&s=967e8a713a4e395260793fc8c802901d);
+        }
+
+        .panel4 {
+            background-image: url(https://source.unsplash.com/ITjiVXcwVng/1500x1500);
+        }
+
+        .panel5 {
+            background-image: url(https://source.unsplash.com/3MNzGlQM7qs/1500x1500);
+        }
+        /* Flex Children */
+
+        .panel>* {
+            margin: 0;
+            width: 100%;
+            transition: transform 0.5s;
+            border: 1px solid red;
+            /* 03_temp to see what's going on */
+            flex: 1 0 auto;
+            /* 08_Sets each word to take 1/3rd of column */
+            display: flex;
+            /* 09_I missed when this line was coded in */
+            justify-content: center;
+            /* 10_ */
+            align-items: center;
+            /* 11_ */
+        }
+
+        .panel>*:first-child {
+            transform: translateY(-100%);
+        }
+        /* 12_Puts top text off screen */
+
+        .panel.open-active>*:first-child {
+            transform: translateY(0);
+        }
+        /* 14_Brings top text back into screen */
+
+        .panel>*:last-child {
+            transform: translateY(100%);
+        }
+        /* 13_Puts bottom text off screen */
+
+        .panel.open-active>*:last-child {
+            transform: translateY(0);
+        }
+        /* 15_Brings top text back into screen */
+
+        .panel p {
+            text-transform: uppercase;
+            font-family: 'Amatic SC', cursive;
+            text-shadow: 0 0 4px rgba(0, 0, 0, 0.72), 0 0 14px rgba(0, 0, 0, 0.45);
+            font-size: 2em;
+        }
+
+        .panel p:nth-child(2) {
+            font-size: 4em;
+        }
+
+        .panel.open {
+            font-size: 40px;
+            flex: 5;
+            /* 16_Will take 5 times the space as the rest of the flex boxes which have a flex of 1, Expands text on mouse-click-focus */
+        }
+    </style>
+
+    <!--html-->
+    <div class="panels">
+        <div class="panel panel1">
+            <p>Hey</p>
+            <p>Let's</p>
+            <p>Dance</p>
+        </div>
+        <div class="panel panel2">
+            <p>Give</p>
+            <p>Take</p>
+            <p>Receive</p>
+        </div>
+        <div class="panel panel3">
+            <p>Experience</p>
+            <p>It</p>
+            <p>Today</p>
+        </div>
+        <div class="panel panel4">
+            <p>Give</p>
+            <p>All</p>
+            <p>You can</p>
+        </div>
+        <div class="panel panel5">
+            <p>Life</p>
+            <p>In</p>
+            <p>Motion</p>
+        </div>
+    </div>
+
+    <!--JavaScript-->
+    <script>
+        // Only a little JS in this excercise for adding and removing of classes
+        const panels = document.querySelectorAll('.panel'); // 17_listening on all individual panels and gives a nodeList
+        // function to toggle class of open
+
+        function toggleOpen() { // 18_adds a class called open
+            console.log('function toggleOpen is run');
+            this.classList.toggle('open');
+        }
+
+        function toggleActive(e) { // 21_multiple transition-end events being fired (font-size and flex-grow) and must isolate flex-grow
+            console.log(e.propertyName);
+            if (e.propertyName.includes('flex')) { // See video-12:00 for notes on safari bug & if(e.propertyName == = 'flex-grow')
+                this.classList.toggle('open-active');
+            }
+        }
+
+            // each panel has a click listener
+            panels.forEach(panel => panel.addEventListener('click', toggleOpen)); // 19_this takes each panel and loops over each, then listen for a click on each panel, and then run the toggle function when it is run. // Not using toggleOpen() because this would run on each pageload.  Now only gives reference to the function saying, when clicked, find the toggleOpen function and then run it.
+
+            // Now bring in top and bottom text once box expands
+            panels.forEach(panel => panel.addEventListener('transitionend', toggleActive)); // 20_Listen for transition-end event and then toggle class of open-active with a function.
+    </script>
+
+panels.forEach(panel => panel.addEventListener('click', toggleOpen));
+    panels.forEach(panel => panel.addEventListener('transitionend', toggleActive));
+
+</body>
+
+</html>
