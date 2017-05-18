@@ -15,21 +15,36 @@
     </ul>
   </form>
 <script>
-  // This is a city/state file from Github <https://github.com/Miserlou>
+  // This is a city/state file from Github https://github.com/Miserlou
 const endpoint = 'https://gist.githubusercontent.com/Miserlou/c5cd8364bf9b2420bb29/raw/2bf258763cdddd704f8ffd3ea9a3e81d25e2c6f6/cities.json';
-
 const cities = []; // empty array to puty cities into
-// Fetch API now available in the browser to fecth data, similar to HTML or XML/HTTP request using jQuery.$.get.json or a library Axios
+
+// Fetch API is now available in the browser to fecth data, similar to HTML or XML/HTTP request using jQuery.$.get.json or a library Axios
 // Fetch test:
-const prom = fetch(endpoint);
-console.log(prom); // This returns/logs a promise which respresnents something that will come back
+// const prom = fetch(endpoint);
+// console.log("prom = ", prom); // This returns/logs a promise which respresnents something that will come back
+
 // Now the work:
- fetch(endpoint).then(sumData => console.log(sumData)); // at this point, code doesn't know what should be coming back, so then we try...
- fetch(endpoint).then(sumData => JSON.parse(sumData)); // We know the link is a JSON file so could try this, but...
+ // fetch(endpoint).then(sumData => console.log(sumData)); // at this point, code doesn't know what should be coming back, so then we try...
+ // fetch(endpoint).then(sumData => JSON.parse(sumData)); // We know the link is a JSON file so could try this, but...
   // the raw data coming back needs to be converted into JSON.  Do this by using the existing prototype (console-Response-headers-__proto__-json)
-  fetch(endpoint) // fetch returns a promise
-  .then(sumData => sumData.json()) // this sldo returns a promise requiring another .then
-  .then(data => console.log(data));  // this gives the raw data
+ fetch(endpoint) // fetch returns a promise
+ .then(sumData => sumData.json()) // this also returns a promise requiring another .then
+  // .then(data => console.log(data));  // this gives the raw data, an array with 1000 objects // now get the data into cities
+  // .then(data => cities = data); // This will NOT work because 'const cities' can not be reassigned as done here. One option is to change 'const' to 'let cities = [];'
+  // or push the data into the empty cities array
+  // .then(data => cities.push(data)); // now type 'cities' into console to see the array of cities
+  .then(data => cities.push(...data)); // now use 3 dots to change array into individual arguements by using spread=ES6
+    
+
+
+
+
+
+  // fetch(endpoint)
+  // .then(blob => blob.json())
+  // .then(data => cities.push(...data))
+
 
 
 </script>
