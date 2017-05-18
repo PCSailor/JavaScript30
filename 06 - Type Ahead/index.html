@@ -35,18 +35,16 @@ const cities = []; // empty array to puty cities into
   // or push the data into the empty cities array
   // .then(data => cities.push(data)); // now type 'cities' into console to see the array of cities
   .then(data => cities.push(...data)); // now use 3 dots to change array into individual arguements by using spread=ES6
-    
 
-
-
-
-
-  // fetch(endpoint)
-  // .then(blob => blob.json())
-  // .then(data => cities.push(...data))
-
-
-
+// Next is to build a function taking the array of data and filters it down into a subset where it can then by listened for it.
+function findMatches(wordToMatch, cities) { // 06:00 to 
+return cities.filter(place => {
+  // here need to see if the city/state matches the search
+  // How do you put a variable into a regular expression? // Cannot create inside match() so must create outside of this (07:35)
+   const regex = new RegExp(wordToMatch, 'gi'); //  wordToMatch = whatever search text it, g = global-looks through entire string for search term, i = insensitive-search matches lower or upper case
+  return place.city.match(regex) || place.state.match(regex); // 
+});
+}
 </script>
   </body>
 </html>
