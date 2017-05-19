@@ -18,7 +18,10 @@
   console.log("Script run");
   // This is a city/state file from Github https://github.com/Miserlou
 const endpoint = 'https://gist.githubusercontent.com/Miserlou/c5cd8364bf9b2420bb29/raw/2bf258763cdddd704f8ffd3ea9a3e81d25e2c6f6/cities.json';
+
 const cities = []; // empty array to puty cities into
+
+//FOR SOME REASON  THE BRACKET COLORS GET LOST HERE OUT
 
 // Fetch API is now available in the browser to fecth data, similar to HTML or XML/HTTP request using jQuery.$.get.json or a library Axios
 // Fetch test:
@@ -49,6 +52,11 @@ return cities.filter(place => {
 });
 }
 
+// search for 'numberWithCommas'
+function numberWithCommas(x) {
+    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+}
+
 // Now need display function which is called whenever the value is changed
 function displayMatches() {
 // console.log(this.value);
@@ -65,19 +73,17 @@ const htmlData = matchArray.map(place => {
 
   return ` 
   <li>
-    <span class="name"> ${place.cityName}, ${place.state} </span>
-    <span class="population"> ${place.population}</span>
+    <span class="name"> ${cityName}, ${stateName} </span>
+    <span class="population"> ${numberWithCommas(place.population)}</span>
   </li>
   `;
 }).join('');
 suggestions.innerHTML = htmlData; // 
 }
-
 const searchInput = document.querySelector('.search');
 const suggestions = document.querySelector('.suggestions');
 searchInput.addEventListener('change', displayMatches); // this only searches when clicked outside search box
 searchInput.addEventListener('keyup', displayMatches); // this searches when keyboard- key released
-
 
 </script>
   </body>
