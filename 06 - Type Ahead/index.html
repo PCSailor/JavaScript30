@@ -15,6 +15,7 @@
     </ul>
   </form>
 <script>
+  console.log("Script run");
   // This is a city/state file from Github https://github.com/Miserlou
 const endpoint = 'https://gist.githubusercontent.com/Miserlou/c5cd8364bf9b2420bb29/raw/2bf258763cdddd704f8ffd3ea9a3e81d25e2c6f6/cities.json';
 const cities = []; // empty array to puty cities into
@@ -42,7 +43,9 @@ return cities.filter(place => {
   // here need to see if the city/state matches the search
   // How do you put a variable into a regular expression? // Cannot create inside match() so must create outside of this (07:35)
    const regex = new RegExp(wordToMatch, 'gi'); //  wordToMatch = whatever search text it, g = global-looks through entire string for search term, i = insensitive-search matches lower or upper case
-  return place.city.match(regex) || place.state.match(regex); // 
+  return place.city.match(regex) || place.state.match(regex); // checks if the city or the state match search
+  // Now in the console, able to test search by typing <findMatches('bos', cities);> which returns 2 objects, City Boston and Bossier City
+  
 });
 }
 </script>
