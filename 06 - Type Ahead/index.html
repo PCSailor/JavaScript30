@@ -45,9 +45,40 @@ return cities.filter(place => {
    const regex = new RegExp(wordToMatch, 'gi'); //  wordToMatch = whatever search text it, g = global-looks through entire string for search term, i = insensitive-search matches lower or upper case
   return place.city.match(regex) || place.state.match(regex); // checks if the city or the state match search
   // Now in the console, able to test search by typing <findMatches('bos', cities);> which returns 2 objects, City Boston and Bossier City
-  
+
 });
 }
+
+// Now need display function which is called whenever the value is changed
+function displayMatches() {
+// console.log(this.value);
+const matchArray = findMatches(this.value, cities); // whatevr is typed into search box, now should run & call this function, find matches and console log them.
+// console.log(matchArray); // this will now log search matches as each letter is typed.  So with this line we now have the correct data.
+
+// get data first (12:30)
+// then get data into event listeners and into the HTML page.
+// Now we code event listeners and data into the HTML page
+const htmlData = matchArray.map(place => {
+  const regex = new RegExp(this.value, 'gi'); // (14:30) // this.value is whatever is searched for
+  const cityName = place.city.replace(regex, `<span class="hl">${this.value}</span>`);
+  const stateName = place.state.replace(regex, `<span class="hl">${this.value}</span>`); // find the search-match & replace with the same value but hightlighted
+
+  return ` 
+  <li>
+    <span class="name"> ${place.cityName}, ${place.state} </span>
+    <span class="population"> ${place.population}</span>
+  </li>
+  `;
+}).join('');
+suggestions.innerHTML = htmlData; // 
+}
+
+const searchInput = document.querySelector('.search');
+const suggestions = document.querySelector('.suggestions');
+searchInput.addEventListener('change', displayMatches); // this only searches when clicked outside search box
+searchInput.addEventListener('keyup', displayMatches); // this searches when keyboard- key released
+
+
 </script>
   </body>
 </html>
