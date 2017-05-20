@@ -25,26 +25,75 @@
       { text: 'Nice Nice Nice!', id: 542328 }
     ];
 
-    // Some and Every Checks
+    // Note: 01_Some and Every Checks (00:20)
     // Array.prototype.some() // is at least one person 19 or older?
-     const isAdult = people.some(function(person) {
+
+    // Version 01
+     const isAdultV1 = people.some(function(person) {
        const currentYear = (new Date()).getFullYear();
        if(currentYear - person.year >= 19) {
          return true;
        }
      });
-     console.log(isAdult);
+     console.log("isAdultV1 = ", isAdultV1);
+
+   // Version 02
+   const isAdultV2 = people.some(person => {
+     const currentYear = (new Date()).getFullYear();
+     return currentYear - person.year >= 19;
+   });
+   console.log({isAdultV2}); // curly-brackets show the name of the value as well as the value**
+
+    // Version 03
+   const isAdultV3 = people.some( person => ((new Date()).getFullYear()) - person.year >= 19 );
+   console.log({isAdultV3});
 
 
-    // Array.prototype.every() // is everyone 19 or older?
+    // Note: 02_Array.prototype.every() (02:30)
+    // is everyone 19 or older?
 
-    // Array.prototype.find()
-    // Find is like filter, but instead returns just the one you are looking for
+       const allAdults = people.every( person => ((new Date()).getFullYear()) - person.year >= 19 );
+   console.log({allAdults});
+
+    // Note: 03_Array.prototype.find() (03:00)
+    // Find is like filter, but instead returns the first one that matches
     // find the comment with the ID of 823423
 
-    // Array.prototype.findIndex()
-    // Find the comment with this ID
+    // Version 01
+    const commentVar1 = comments.find(function(commentVar1) { // comments referring to comments array above
+      if(commentVar1.id === 823423) {
+        return true;
+      }
+    });
+    console.log({commentVar1});
+
+    // Version 02
+    const commentVar2 = comments.find (commentVar2 => commentVar2.id === 823423);
+    console.log({commentVar2});
+
+
+    // Note: 04_Array.prototype.findIndex() (04:40)
     // delete the comment with the ID of 823423
+    // Find something within an array
+
+    const index = comments.findIndex(commentVar2 => commentVar2.id === 823423); // similar code as above
+    console.log({index});
+
+    // now to delete it
+    // Version 01
+    comments.splice(index, 1);
+    // console.log({index});
+    console.table(comments);
+    // console.table({comments}); // FIXME: this doesn't work
+
+    // Version 02
+    // redux method: create a new array of the updated comments
+    const newComments = [
+      ...comments.slice(0, index),
+      ...comments.slice(index +1)
+    ];
+    console.log({newComments});
+    console.table(newComments);
 
   </script>
 </body>
