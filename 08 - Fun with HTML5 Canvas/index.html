@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>HTML5 Canvas</title>
+</head>
+<body>
+<canvas id="draw" width="800" height="800"></canvas> <!--  canvas element to draw on -->
+
+<script>
+  const canvas = document.querySelector('#draw');
+  const ctx = canvas.getContext('2d');  // draw on context in 2d or 3d // must be lowercase 'd' or error
+
+  // size up the canvas to be exact default of the viewing window (determined above: width="800" height="800") // Inspect canvas on webpage to see size adjust
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+
+// Now for Base settings: Stroke style, Line cap, and Line Join
+ctx.strokeStyle = '#BADA55'; // sets drawing line color
+ctx.lineJoin = 'round'; // determines shape of lines joining together
+ctx.lineCap = 'round'; // determines shape of line end
+
+// Now need dummy variables
+let isDrawing = false; // sets drawing to happen only on left click, which then sets var to true (02:30)
+let lastX = 0;
+let lastY = 0; // determines starting X/Y and ending X/Y relative to mouse clicks (confusing)
+
+// function to be called whenever mouse is moved over canvas
+function draw(e) {
+  if(!isDrawing) return;  // stops call of function when not mouse-clicked down
+  console.log(e);
+
+// now that EventListeners set (below), start the drawing
+
+}
+canvas.addEventListener('mousemove', draw); // listens and logs mouse moves on canvas
+canvas.addEventListener('mousedown', () => isDrawing = true); // when mouse-click is down then draws
+canvas.addEventListener('mouseup', () => isDrawing = false); // when mouse-click is up then does not draw
+canvas.addEventListener('mouseout', () => isDrawing = false); // when mouse-click is out of canvas then does not draw
+
+</script>
+
+<style>
+  html, body {
+    margin:0;
+  }
+</style>
+
+</body>
+</html>
