@@ -29,12 +29,30 @@ let lastY = 0; // determines starting X/Y and ending X/Y relative to mouse click
 function draw(e) {
   if(!isDrawing) return;  // stops call of function when not mouse-clicked down
   console.log(e);
-
 // now that EventListeners set (below), start the drawing
+ctx.beginPath(); // start from // ctx is where all drawing is done for the canvas
+ctx.moveTo(lastX, lastY); // go to //need to start with an X & Y, move it to an X & Y, and that will complete the drawing of X
+ctx.lineTo(e.offsetX, e.offsetY); // e.offsetX, e.offsetY are coming off the actual MouseEvent witnessed within the console just above 'path:Array(5)'
+// the above 3 lines have been starting up the lines but still will not see anything until stroke() is called
+ctx.stroke();
 
+// NOTE: version 01
+/*lastX = e.offsetX //  when done the draw function, need to update the lastX and lastY to be whereever the mouse is
+lastY = e.offsetY*/
+// NOTE: version 02 
+[lastX, lastY] = [e.offsetX, e.offsetY]; // also copied below into mousedown // called destructuring an array
 }
+
+// At this point, there are two problems, draw starts at 0,0 and once clicked again, jumps to where last draw ended.
+canvas.addEventListener('mousedown', (e) => { // when mouse-click is down then draws
+  isDrawing = true;
+  [lastX, lastY] = [e.offsetX, e.offsetY]; // as soon as mousedown is heard, will update X & Y position to current location (alway before mousemove)
+}); 
+
+
+
 canvas.addEventListener('mousemove', draw); // listens and logs mouse moves on canvas
-canvas.addEventListener('mousedown', () => isDrawing = true); // when mouse-click is down then draws
+// canvas.addEventListener('mousedown', () => isDrawing = true); // moved above // when mouse-click is down then draws
 canvas.addEventListener('mouseup', () => isDrawing = false); // when mouse-click is up then does not draw
 canvas.addEventListener('mouseout', () => isDrawing = false); // when mouse-click is out of canvas then does not draw
 
