@@ -1,69 +1,57 @@
 <!DOCTYPE html>
 <html lang="en">
+ 
 <head>
   <meta charset="UTF-8">
   <title>HTML5 Canvas</title>
 </head>
+
 <body>
-<canvas id="draw" width="800" height="800"></canvas> <!--  canvas element to draw on -->
+  <canvas id="draw" width="800" height="800"></canvas>
 
-<script>
-  const canvas = document.querySelector('#draw');
-  const ctx = canvas.getContext('2d');  // draw on context in 2d or 3d // must be lowercase 'd' or error
+  <script>
+    const canvas = document.querySelector('#draw');
+    const ctx = canvas.getContext('2d');
 
-  // size up the canvas to be exact default of the viewing window (determined above: width="800" height="800") // Inspect canvas on webpage to see size adjust
-  canvas.width = window.innerWidth;
-  canvas.height = window.innerHeight;
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
 
-// Now for Base settings: Stroke style, Line cap, and Line Join
-ctx.strokeStyle = '#BADA55'; // sets drawing line color
-ctx.lineJoin = 'round'; // determines shape of lines joining together
-ctx.lineCap = 'round'; // determines shape of line end
-ctx.lineWidth = 50; // sets the width of the draw line
+    ctx.strokeStyle = '#BADA55';
+    ctx.lineJoin = 'round';
+    ctx.lineCap = 'round';
+    ctx.lineWidth = 25;
 
-// Now need dummy variables
-let isDrawing = false; // sets drawing to happen only on left click, which then sets var to true (02:30)
-let lastX = 0;
-let lastY = 0; // determines starting X/Y and ending X/Y relative to mouse clicks (confusing)
+    let isDrawing = false;
+    let lastX = 0;
+    let lastY = 0;
 
-// function to be called whenever mouse is moved over canvas
-function draw(e) {
-  if(!isDrawing) return;  // stops call of function when not mouse-clicked down
-  console.log(e);
-// now that EventListeners set (below), start the drawing
-ctx.beginPath(); // start from // ctx is where all drawing is done for the canvas
-ctx.moveTo(lastX, lastY); // go to //need to start with an X & Y, move it to an X & Y, and that will complete the drawing of X
-ctx.lineTo(e.offsetX, e.offsetY); // e.offsetX, e.offsetY are coming off the actual MouseEvent witnessed within the console just above 'path:Array(5)'
-// the above 3 lines have been starting up the lines but still will not see anything until stroke() is called
-ctx.stroke();
+    function draw(e) {
+      if (!isDrawing) return;
+      console.log(e);
+      ctx.beginPath();
+      ctx.moveTo(lastX, lastY);
+      ctx.lineTo(e.offsetX, e.offsetY);
+      ctx.stroke();
+      [lastX, lastY] = [e.offsetX, e.offsetY];
+    }
 
-// NOTE: version 01
-/*lastX = e.offsetX //  when done the draw function, need to update the lastX and lastY to be whereever the mouse is
-lastY = e.offsetY*/
-// NOTE: version 02 
-[lastX, lastY] = [e.offsetX, e.offsetY]; // also copied below into mousedown // called destructuring an array
-}
+    canvas.addEventListener('mousedown', (e) => {
+      isDrawing = true;
+      [lastX, lastY] = [e.offsetX, e.offsetY];
+    });
 
-// At this point, there are two problems, draw starts at 0,0 and once clicked again, jumps to where last draw ended.
-canvas.addEventListener('mousedown', (e) => { // when mouse-click is down then draws
-  isDrawing = true;
-  [lastX, lastY] = [e.offsetX, e.offsetY]; // as soon as mousedown is heard, will update X & Y position to current location (alway before mousemove)
-}); 
+    canvas.addEventListener('mousemove', draw);
+    canvas.addEventListener('mouseup', () => isDrawing = false);
+    canvas.addEventListener('mouseout', () => isDrawing = false);
+  </script>
 
-
-
-canvas.addEventListener('mousemove', draw); // listens and logs mouse moves on canvas
-// canvas.addEventListener('mousedown', () => isDrawing = true); // moved above // when mouse-click is down then draws
-canvas.addEventListener('mouseup', () => isDrawing = false); // when mouse-click is up then does not draw
-canvas.addEventListener('mouseout', () => isDrawing = false); // when mouse-click is out of canvas then does not draw
-
-</script>
-
-<style>
-  html, body {
-    margin:0;
-  }
-</style>
+  <style>
+    html,
+    body {
+      margin: 0;
+    }
+  </style>
 
 </body>
+
 </html>
