@@ -20,14 +20,16 @@
 
     var variable = "super-string"
     // Regular
-    console.log('hello');
+    console.log('simple console.log');
 
     // Interpolated // with %s and/or ES6
-    console.log('Hello, I am a %s string!', '"external variable"');
-    console.log(`Hello, I am a ${variable}`);
+    console.log('console.log passing in a string shown here: %s string!', 'entered text');
+    console.log(`console.log passing in an ES6 variable shown here: ${variable}`);
 
     // Styled // with %c
-    console.log('%c percent-sign-+-C applies any font-CSS code', 'font-size: 24px; background: purple; text-shadow: 10px 10px 0 Green');
+    console.log('%c percent-sign-plus-C applies any font-CSS code', 'font-size: 24px; background: purple; text-shadow: 30px 20px 5px yellow');
+    // text-shadow: 10px 20px 30px yellow / Right Down Blur Color (RDBC)
+    console.log(""); // just a line spacer
 
     // warning!
     console.warn('console.warn places a yellow triangle icon to the left');
@@ -38,14 +40,21 @@
     // Info
     console.info('console.info places an "i" icon to the left');
 
-    // Testing
-    console.assert(1 === 1, '');
+    // Testing // test for something & if false gives an error in console
+    console.assert(1 === 2, '1 != 2 so this text shows up');  // console.assert only fires when wrong, so checks if things are true
+    // or
+    const p = document.querySelector('p');
+    console.assert(p.classList.contains('sumtin'), 'This proves wrong so this text is shown');
 
-    // clearing
-    console.log();
+    // clearing // clears console so commented out for now
+    /*
+    console.clear();
+    */
 
     // Viewing DOM Elements
-    console.log();
+    console.log('console.log shows the p element [p for HTML-paragraph defined above]', p);
+    console.log('console.dir shows shows all available methods and all properties for a HTML element');
+    console.dir(p); 
 
     // Grouping together
     console.log();
