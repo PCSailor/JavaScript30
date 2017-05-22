@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
- 
+
 <head>
   <meta charset="UTF-8">
   <title>HTML5 Canvas</title>
@@ -9,6 +9,7 @@
 <body>
   <canvas id="draw" width="800" height="800"></canvas>
 
+
   <script>
     const canvas = document.querySelector('#draw');
     const ctx = canvas.getContext('2d');
@@ -16,23 +17,46 @@
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
 
-    ctx.strokeStyle = '#BADA55';
+    // ctx.strokeStyle = '#BADA55'; // redefined below
     ctx.lineJoin = 'round';
     ctx.lineCap = 'round';
-    ctx.lineWidth = 25;
+    ctx.lineWidth = 100; // redefined below
+
+    // Google 'globalCompositeOperation' for blend modes <https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/globalCompositeOperation>
+    ctx.globalCompositeOperation = 'multiply'; // similar to Photoshop blend mode
 
     let isDrawing = false;
     let lastX = 0;
     let lastY = 0;
+    let hue = 0; // added hue variable starting at 0(red)
+    let direction = true; // used to build an increased number line width
 
     function draw(e) {
       if (!isDrawing) return;
       console.log(e);
+      ctx.strokeStyle = `hsl(${hue}, 100%, 50%)`; // hue is the variable hue, saturation is 100%, lightness is 50%
+      //ctx.lineWidth = hue; // sets line width equal to hue (0-36 0) but this is not effect wanted
       ctx.beginPath();
       ctx.moveTo(lastX, lastY);
       ctx.lineTo(e.offsetX, e.offsetY);
       ctx.stroke();
       [lastX, lastY] = [e.offsetX, e.offsetY];
+
+      // Hue color change:
+      hue++; // this will simply increment the hue with each draw
+      if (hue >= 360) {
+        hue = 0; // resets hue to 0 after it hits 360
+      }
+
+      // for every loop line width will be incremented:
+      if (ctx.lineWidth >= 100 || ctx.lineWidth <= 1) { // If greater than 100 or less then 1, flip the direction; 
+        direction = !direction;
+      }
+      if (direction) { // depending on what the direction is will either increment or decrement the line width
+        ctx.lineWidth++; // incrementing line width from 0 to 100
+      } else {
+        ctx.lineWidth--; // Once line width hits 100, decrement line width from 100 back to 0
+      }
     }
 
     canvas.addEventListener('mousedown', (e) => {
@@ -43,6 +67,14 @@
     canvas.addEventListener('mousemove', draw);
     canvas.addEventListener('mouseup', () => isDrawing = false);
     canvas.addEventListener('mouseout', () => isDrawing = false);
+
+    // Comments in this file refer to adding the color and HSL
+    //  http://mothereffinghsl.com/
+    // Essentially HSL is the rainbow with the ability to programitically select a specific color spot
+    // Hue = red over to red horizontally, 0 to 360 across the spectrum
+    // Saturation = how bright
+    // Lightness = White to Black
+    // So to use this in this code, for every 360 draws done, code to pick a random color and then flip it back
   </script>
 
   <style>
