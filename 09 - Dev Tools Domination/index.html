@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Console Tricks!</title>
+</head>
+<body>
+
+  <p onClick="makeGreen()">×BREAK×DOWN×</p> <!-- paragraph tag when clicked will run a function called makeGreen -->
+
+  <script>
+    const dogs = [{ name: 'Snickers', age: 2 }, { name: 'hugo', age: 8 }];
+
+    function makeGreen() { // when run will take 1st paragraph and change the color and increase the font.
+      const p = document.querySelector('p');
+      p.style.color = '#BADA55';
+      p.style.fontSize = '50px';
+    }
+// Rt-click --> Inspect --> Rt-click on HTML element --> Break On > Attribute Modifications --> See exactly what code line modifies element
+
+    var variable = "super-string"
+    // Regular
+    console.log('hello');
+
+    // Interpolated // with %s and/or ES6
+    console.log('Hello, I am a %s string!', '"external variable"');
+    console.log(`Hello, I am a ${variable}`);
+
+    // Styled // with %c
+    console.log('%c percent-sign-+-C applies any font-CSS code', 'font-size: 24px; background: purple; text-shadow: 10px 10px 0 Green');
+
+    // warning!
+    console.warn('console.warn places a yellow triangle icon to the left');
+
+    // Error :|
+    console.error('console.error places a red "x" icon to the left');
+
+    // Info
+    console.info('console.info places an "i" icon to the left');
+
+    // Testing
+    console.assert(1 === 1, '');
+
+    // clearing
+    console.log();
+
+    // Viewing DOM Elements
+    console.log();
+
+    // Grouping together
+    console.log();
+
+    // counting
+    console.log();
+
+    // timing
+    console.log();
+
+  </script>
+</body>
+</html>
