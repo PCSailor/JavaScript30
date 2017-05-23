@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Console Tricks!</title>
+</head>
+<body>
+<!-- Originally titled '09 - Dev Tools Domination'' --> <strong>Originally titled '09 - Dev Tools Domination'</strong>
+
+  <p onClick="makeGreen()">×BREAK×DOWN×</p> <!-- paragraph tag when clicked will run a function called makeGreen -->
+
+  <script>
+    // dogs array
+    const dogs = [{ name: 'Snickers', age: 2 }, { name: 'hugo', age: 8 }];
+
+    // paragraph font function
+    function makeGreen() { // when run will take 1st paragraph and change the color and increase the font.
+      const p = document.querySelector('p');
+      p.style.color = '#BADA55';
+      p.style.fontSize = '50px';
+    }
+// codenote: Rt-click --> Inspect --> Rt-click on HTML element --> Break On > Attribute Modifications --> See exactly what code line modifies element
+
+    var variable = "super-string"
+
+    // codenote: Regular
+    console.log('simple console.log');
+
+    // Table Data // table-format an array (ie: dogs) of objects (ie: each dog) with the same properties
+    console.table(dogs);
+
+    // codenote: Interpolated // with %s and/or ES6
+    console.log('console.log passing in a string shown here: %s string!', 'entered text');
+    console.log(`console.log passing in an ES6 variable shown here: ${variable}`);
+
+    // codenote: Styled // with %c
+    console.log('%c percent-sign-plus-C applies any font-CSS code', 'font-size: 24px; background: purple; text-shadow: 30px 20px 5px yellow');
+    // text-shadow: 10px 20px 30px yellow / Right Down Blur Color (RDBC)
+    console.log(""); // just a line spacer
+
+    // codenote: warning!
+    console.warn('console.warn places a yellow triangle icon to the left');
+
+    // codenote: Error :|
+    console.error('console.error places a red "x" icon to the left');
+
+    // codenote: Info
+    console.info('console.info places an "i" icon to the left');
+
+    // codenote: Testing // test for something & if false gives an error in console
+    console.assert(1 === 2, '1 != 2 so this text shows up');  // console.assert only fires when wrong, so checks if things are true
+    // or
+    const p = document.querySelector('p');
+    console.assert(p.classList.contains('sumtin'), 'This proves wrong so this text is shown');
+
+    // codenote: clearing // clears console // commented out for now
+    /*
+    console.clear();
+    */
+
+    // codenote: Viewing DOM Elements
+    console.log('console.log shows the p element [p for HTML-paragraph defined above]', p);
+    console.log('console.dir shows shows all available methods and all properties for a HTML element');
+    console.dir(p); 
+
+    // codenote: Grouping together // console.log in a group dependent on selected element
+    // loop over dogs array
+    dogs.forEach(dog => {
+    console.groupCollapsed(`${dog.name}`);  // <--shown on console collapsed
+      // or console.group(`${dog.name}`); // <-- shown on console expanded
+    console.log(`This dogs name is ${dog.name}`);
+    console.log(`${dog.name} is ${dog.age} years old`);
+    console.log(`${dog.name} is ${dog.age * 7} dog years old`);
+    console.groupEnd(`${dog.name}`); // <--
+    });
+
+    // codenote: counting // counts however many times any specific item is used (word, number, object, DOM, node, etc.)
+    console.count('Arthur'); console.count('curtis'); console.count('Arthur'); console.count('phil'); console.count('curtis'); console.count('Arthur'); console.count('curtis'); console.count('Arthur'); console.count('phil'); console.count('curtis'); console.count('phil'); console.count('Arthur'); console.count('curtis'); console.count('phil'); console.count('phil'); console.count('phil'); console.count('curtis'); console.count('phil'); console.count('Arthur'); console.count('phil'); console.count('curtis'); console.count('Arthur'); console.count('phil'); console.count('curtis'); console.count('curtis'); console.count('Arthur'); console.count('Arthur'); console.count('phil'); console.count('Arthur'); console.count('curtis');
+
+    // codenote: timing // how long something takes
+    console.time('fetching data'); // start a timer
+    fetch('https://api.github.com/users/PCSailor') // do something that takes time like fetching some data
+    .then(data => data.json())
+    .then(data => {
+      console.timeEnd('fetching data'); // pass the same string used to start it
+      console.log("fetched data = ", data);
+    });
+    // another timing option is performance.now in the browser
+
+
+  </script>
+</body>
+</html>
