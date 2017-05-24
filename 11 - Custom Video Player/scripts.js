@@ -1,1 +1,0 @@
-console.log("Script.js is run");
