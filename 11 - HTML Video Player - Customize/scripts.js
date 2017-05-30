@@ -5,8 +5,8 @@ const video = player.querySelector('.viewer'); // gets actual video
 const progress = player.querySelector('.progress'); // gets progress bar
 const progressBar = player.querySelector('.progress__filled'); // gets progress__filled
 const toggle = player.querySelector('.toggle'); // gets toggle
-const skipButtons = player.querySelector('[data-skip]'); // gets skip buttons
-const ranges = player.querySelector('.player__slider'); // gets player slider
+const skipButtons = player.querySelectorAll('[data-skip]'); // gets skip buttons
+const ranges = player.querySelectorAll('.player__slider'); // gets player slider
 
 
 // Build out functions
@@ -37,7 +37,12 @@ function updateButton() {
 // how much video will be skipped - goto DOM buttons
 function skip() {
     console.log('function skip run');
-    console.log('this.dataset = ', this.dataset);
+    console.log('this.dataset.skip = ', this.dataset.skip);
+    video.currentTime += parseFloat(this.dataset.skip);
+}
+
+function handleRangeUpdate() {
+    console.log(this.value);
 }
 
 // Hook up event listeners
@@ -48,3 +53,4 @@ video.addEventListener('play', updateButton);
 video.addEventListener('pause', updateButton);
 // video.play() or video.pause() to play/pause video from console
 skipButtons.forEach(button => button.addEventListener('click', skip));
+ranges.forEach(range => range.addEventListener('change', handleRangeUpdate));
