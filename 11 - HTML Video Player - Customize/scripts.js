@@ -1,4 +1,6 @@
 console.log("Script.js is run");
+// still need to add a full screen button but this is a detailed HTML5 video player
+
 // Get elements on page
 const player = document.querySelector('.player'); // get the player
 const video = player.querySelector('.viewer'); // gets actual video
@@ -89,4 +91,12 @@ ranges.forEach(range => range.addEventListener('mousemove', handleRangeUpdate));
 
 //Progress Bar Scrubbing
 progress.addEventListener('click', scrub); // when click on progress bar, run scrub function
-progress.addEventListener('mousemove', scrub); //
+// progress.addEventListener('mousemove', scrub); // this reacts when mouse moves over progress bar resulting in jerky video.
+// Want to click-down on progress bar to change video frames so need to create a 'flag variable' (see HTML canvas code-video), set to false, and when clicked then set to true.
+let mousedown = false;
+// v01
+// progress.addEventListener('mousemove', () => { if(mousedown) {  scrub(); } }
+// v02
+progress.addEventListener('mousemove', (e) => mousedown && scrub(e)); // When mouse moves, mousedown and then scrub.  1st checks mousedown variable, if true-->then run scrub function.  If mousedown is false, then returns false doing nothing.
+progress.addEventListener('mousedown', () => mousedown = true);
+progress.addEventListener('mouseup', () => mousedown = false);
