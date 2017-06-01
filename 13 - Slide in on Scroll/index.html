@@ -89,7 +89,14 @@
     </div>
 
     <script>
-        function debounce(func, wait = 20, immediate = true) {
+        // Note: Debounce Functions:
+        // debounce function limits the rate at which a function can fire
+        // "There is a debounce function in lodash but this is a framework-free tutorial so I grabbed a debounce function off the internet" fixme: Don't quite understand this
+        // Debounce functions are included in many JavaScript libraries. The goal behind each implementation is to reduce overhead by preventing a function from being called several times in succession. Regardless of the library, all debounce functions are built on JavaScript's native setTimeout function.
+        // https://davidwalsh.name/javascript-debounce-function
+        // https://john-dugan.com/javascript-debounce/
+        // Note: <13 - Slide In on Scroll.mp4> @ 03:10 for explaination
+        function debounce(func, wait = 20, immediate = true) { // pass in a function into the debounce function.  In this case, it will run the debounce everytime the HTML page is scrolled, but will only run the checkSlide function once every 20 milliseconds.
             var timeout;
             return function() {
                 var context = this,
@@ -109,8 +116,10 @@
 
         // create function that runs everytime page is scrolled
         function checkSlide(e) {
-            console.log(e);
+            console.log(e); // logs scrolling of HTML window
+            console.count(e); // counts scrolling of HTML window
         }
+        window.addEventListener('scroll', checkSlide);
     </script>
 
     <style>
