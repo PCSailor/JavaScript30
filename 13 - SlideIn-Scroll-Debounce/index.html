@@ -117,18 +117,18 @@
         // <13 - Slide In on Scroll.mp4> @ 04:40
         // <Note:>function checkSlide</Note:> Function that runs everytime page is scrolled and loops over every image, figuring out where image needs to be shown.
         // As page is shown with images off page, the image is hidden, then as the page is scrolled images slide into view.  At about the 50% viewing area, the image should be animated into view, which requires considerable math.
-        function checkSlide(e) {
+        function checkSlide() {
             // console.log("e = ", e); // logs scrolling of HTML window
-            console.count("e count = ", e); // counts scrolling of HTML window
+            // console.count("e count = ", e); // counts scrolling of HTML window
             // So once the debounce function is set, then need to loop over every image and determine where image needs to be shown.
-            sliderImages.forEach(slideImage => { // loop over each image
-                console.log("scrollY = ", window.scrollY); // logs how many pixels scrolled down starting from top of browser
-                console.log("slideInAt = ", slideInAt); // logs how many pixels scrolled down determined from bottom of browser
+            sliderImages.forEach(sliderImage => { // loop over each image
+                // console.log("scrollY = ", window.scrollY); // logs how many pixels scrolled down starting from top of browser
+
                 // version: 01
                 // const slideInAt = (window.scrollY + window.innerHeight); // gives the pixel height at bottom of page
                 // version: 02
-                const slideInAt = (window.scrollY + window.innerHeight) - slideImage.height / 2; // add sliding in halfway through image // slideImage.height allows slide in image at very bottom and dividing by 2 slides in at the middle
-                console.log("slideInAt = ", slideInAt);
+                const slideInAt = (window.scrollY + window.innerHeight) - sliderImage.height / 2; // add sliding in halfway through image // slideImage.height allows slide in image at very bottom and dividing by 2 slides in at the middle
+                console.log("slideInAt = ", slideInAt); // logs how many pixels scrolled down determined from bottom of browser
 
 
             });
