@@ -114,10 +114,11 @@
 
         const sliderImages = document.querySelectorAll('.slide-in'); // selects every image because they all have a class of slide-in
 
+        // <Note:>function checkSlide</Note:> 
         // <13 - Slide In on Scroll.mp4> @ 04:40
-        // <Note:>function checkSlide</Note:> Function that runs everytime page is scrolled and loops over every image, figuring out where image needs to be shown.
+        // Function that runs everytime page is scrolled and loops over every image, figuring out where image needs to be shown.
         // As page is shown with images off page, the image is hidden, then as the page is scrolled images slide into view.  At about the 50% viewing area, the image should be animated into view, which requires considerable math.
-        function checkSlide() {
+        function checkSlide(e) {
             // console.log("e = ", e); // logs scrolling of HTML window
             // console.count("e count = ", e); // counts scrolling of HTML window
             // So once the debounce function is set, then need to loop over every image and determine where image needs to be shown.
@@ -127,8 +128,11 @@
                 // version: 01
                 // const slideInAt = (window.scrollY + window.innerHeight); // gives the pixel height at bottom of page
                 // version: 02
-                const slideInAt = (window.scrollY + window.innerHeight) - sliderImage.height / 2; // add sliding in halfway through image // slideImage.height allows slide in image at very bottom and dividing by 2 slides in at the middle
+                const slideInAt = (window.scrollY + window.innerHeight) - sliderImage.height / 2; // this gives the pixel level of when each image should be slid-in at // slideImage.height allows slide in image at very bottom and dividing by 2 slides in at the middle
                 console.log("slideInAt = ", slideInAt); // logs how many pixels scrolled down determined from bottom of browser
+
+                // Now determine bottom of image for scrolling up or scrolling past the image and sliding it back out
+                const imageBottom = sliderImage.offsetTop + sliderImage.height; // offsetTop tells the top of the image is how far from the top of the window, it gives a pixel level of how far down it actually is. // '+ sliderImage.height is to know where the bottom of the image is giving the actual height of the image
 
 
             });
