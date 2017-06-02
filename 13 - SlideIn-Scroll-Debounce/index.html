@@ -82,10 +82,6 @@
             distinctio, itaque molestiae sequi, dolorum nisi repellendus quia facilis iusto dignissimos nam? Tenetur fugit quos autem nihil, perspiciatis expedita enim tempore, alias ab maiores quis necessitatibus distinctio molestias eum, quidem. Delectus
             impedit quidem laborum, fugit vel neque quo, ipsam, quasi aspernatur quas odio nihil? Veniam amet reiciendis blanditiis quis reprehenderit repudiandae neque, ab ducimus, odit excepturi voluptate saepe ipsam. Voluptatem eum error voluptas porro
             officiis, amet! Molestias, fugit, ut! Tempore non magnam, amet, facere ducimus accusantium eos veritatis neque.</p>
-
-
-
-
     </div>
 
     <script>
@@ -128,13 +124,24 @@
                 // version: 01
                 // const slideInAt = (window.scrollY + window.innerHeight); // gives the pixel height at bottom of page
                 // version: 02
-                const slideInAt = (window.scrollY + window.innerHeight) - sliderImage.height / 2; // this gives the pixel level of when each image should be slid-in at // slideImage.height allows slide in image at very bottom and dividing by 2 slides in at the middle
+                const slideInAt = (window.scrollY + window.innerHeight) - sliderImage.height / 2; // halfway through the image // this gives the pixel level of when each image should be slid-in at // slideImage.height allows slide in image at very bottom and dividing by 2 slides in at the middle
                 console.log("slideInAt = ", slideInAt); // logs how many pixels scrolled down determined from bottom of browser
 
                 // Now determine bottom of image for scrolling up or scrolling past the image and sliding it back out
-                const imageBottom = sliderImage.offsetTop + sliderImage.height; // offsetTop tells the top of the image is how far from the top of the window, it gives a pixel level of how far down it actually is. // '+ sliderImage.height is to know where the bottom of the image is giving the actual height of the image
+                const imageBottom = sliderImage.offsetTop + sliderImage.height; // bottom of the image // offsetTop tells the top of the image is how far from the top of the window, it gives a pixel level of how far down it actually is. // '+ sliderImage.height is to know where the bottom of the image is giving the actual height of the image
 
-
+                // 09:15
+                // determine if image is half shown
+                // determine if page has been scrolled past the image
+                const isHalfShown = slideInAt > sliderImage.offsetTop; // variable will check if half visible
+                const isNotScrolledPast = window.scrollY < imageBottom; // variable will check if scrolled past image
+                console.log("isHalfShown = ", isHalfShown); // boolean
+                console.log("isNotScrolledPast = ", isNotScrolledPast); // boolean
+                if (isHalfShown && isNotScrolledPast) {
+                    sliderImage.classList.add('active');
+                } else {
+                    sliderImage.classList.remove('active');
+                }
             });
         }
 
