@@ -30,59 +30,119 @@
 
         // and we want to make a copy of it.
         const team = players;
-        console.log("players = ", players); // players =  (4) ["player01", "player02", "player03", "player04"]
-        console.log("team = ", team); // team =  (4) ["player01", "player02", "player03", "player04"]
+        console.log("players = ", players); // Results: players =  (4) ["player01", "player02", "player03", "player04"]
+        console.log("team = ", team); // Results: team =  (4) ["player01", "player02", "player03", "player04"]
 
         // You might think we can just do something like this as was done above:
         console.log("Now add this line of code: team[3] = 'player04b' and see what happens to the two variables");
         team[3] = "player04b"
 
         // however what happens when we update that array?
-        console.log("players = ", players); // players =  (4) ["player01", "player02", "player03", "player04b"]
-        console.log("team = ", team); // team =  (4) ["player01", "player02", "player03", "player04b"]
+        console.log("players = ", players); // Results: players =  (4) ["player01", "player02", "player03", "player04b"]
+        console.log("team = ", team); // Results: team =  (4) ["player01", "player02", "player03", "player04b"]
         // now here is the problem!
-        console.log("The original array has been edited too!  Why? Because it is an array reference, not an array copy so they both point to the same array.");
+        console.log("The original array has been edited too!  Why? Because it is an array reference, not an array copy so both point to the same array.");
         // Note: If you change the array in the second variable, notice it will change the original array from the first variable, it will always reference back to the array.
 
-        // So, how do we fix this?
+        // So, how do we fix this?  Note: This is how to create a copy of an Array
         // Note: Instead of making a reference to the array, make a copy of the array.
         // There are many ways to copy an array.
         players = ['player01', 'player02', 'player03', 'player04'];
-        console.log("players = ", players ");
-                // 1) one way
-                const team2 = players.slice(); // Slice with nothing passed in will make a copy the array
-                console.log("players =", players); console.log("players.slice() = ", players.slice()); console.log("players.slice(2,3) = ", players.slice(2, 3)); // normal use of slice
 
-                // 2) or create a new array and concat the old one in
-                const team3 = [].concat(players);
+        // 1) one way
+        const team2 = players.slice(); // Slice with nothing passed in will make a copy the array
+        console.log("players.slice() (A new array-identical to the first) = ", players.slice());
+        console.log("players.slice(2,3) (normal use of slice) = ", players.slice(2, 3)); // normal use of slice
+        team2[0] = 'player01b-slice()'
+        console.log("team2 = ", team2);
+        console.log("players = ", players);
 
-                // 3) or use the new ES6 Spread
-                const team4 = [...players]; // spread will take every item out of the iterable (array), and put it into the container (a new array)
-                team[3] = 'player04c-ES6'
-                console.log("team4 = ", team4);
+        // 2) 2nd way; create a new array and concat the old one in
+        const team3 = [].concat(players); // take a blank array and concatinate in the existing array
+        team3[1] = 'player02b-concat'
+        console.log("team3 = ", team3);
+        console.log("players = ", players);
+
+        // 3) 3rd way; use the new ES6 Spread
+        const team4 = [...players]; // spread will take every item out of the iterable (array), and put it into the container (a new array)
+        team4[2] = 'player03b-ES6-Spread Method'
+        console.log("team4 = ", team4);
+        console.log("players = ", players);
 
 
-                // 4) 
-                const team5 = Array.from(players)
+        // 4) 4th way; 
+        const team5 = Array.from(players) // Wes' favorite method
+        team5[3] = 'player04c-.from'
+        console.log("team5 = ", team5);
+        console.log("players = ", players);
 
-                // now when we update it, the original one isn't changed
+        // now when we update it, the original one isn't changed
 
-                // 5:55
-                // The same thing goes for objects, let's say we have a person object
+        // 5:55
+        // The same thing goes for objects, let's say we have a person object
 
-                // with Objects
-                // const person = {
-                //     name: StephTresidder,
-                //     age: 32
-                // }
+        // with Objects
+        const person = {
+            name: 'StephTresidder',
+            age: 32
+        };
 
-                // and think we make a copy:
+        // and think we make a copy:
+        const person02 = person;
+        person.age = 99;
+        console.log('person =', person); // Results: Object {name: "StephTresidder", age: 99}
+        console.log('person02 =', person02); // Results: Object {name: "StephTresidder", age: 99}
+        console.log('notice with person and person02, both have been changed');
 
-                // how do we take a copy instead?
+        // how do we take a copy of an object instead? (06:20)
+        // Object.assign() is how
+        // start with a blank object
+        // pass it the object needed to copy all the properties from
+        // pass in the new properties to overwrite
+        // Put all this inside it's own variable
+        const person03 = Object.assign({}, person, { // Note: captial 'O' in Object (lower case = error)
+            number: 99,
+            age: 12
+        });
+        console.log("person03 = ", person03);
+        console.log('person =', person);
 
-                // We will hopefully soon see the object ...spread
+        // We will hopefully soon see the object ...spread
+        // const person04 = {...person}; // not yet in JavaScript
 
-                // Things to note - this is only 1 level deep - both for Arrays and Objects. lodash has a cloneDeep method, but you should think twice before using it.
+        // Things to note - this is only 1 level deep - both for Arrays and Objects. lodash has a cloneDeep method, but you should think twice before using it.
+        const phil = {
+            name: 'Phil',
+            age: 47,
+            social: {
+                twitter: '@flatblackpc',
+                facebook: 'https://www.facebook.com/pcsailor'
+            }
+        }
+        console.clear();
+        console.log('phil (original) =', phil);
+
+        const dev = Object.assign({}, phil); // Object.assign method to copy the object
+        console.log('dev =', dev);
+        dev.name = "Philip";
+        console.log('dev =', dev);
+        console.log('phil (unchanged) =', phil);
+        // By taking a copy of the object, when the copy is updated, it will not change the original object
+
+        // So now the problem:
+        dev.social.twitter = '@at'
+        console.log("dev.social =", dev.social);
+        console.log("phil.social =", phil.social);
+        console.log("Notice 'phil' and 'dev' have changed because 'Object.assign' can only go one level deep");
+        // Note: notice 'phil' and 'dev' have changed because 'Object.assign' can only go one level deep"
+        // To change all levels of an object, need a function called 'clone deep' (Google 'javascript function clone deep')
+        // "Very rarely should you need to clone an object"
+
+        const dev02 = JSON.parse(JSON.stringify(phil)); // poor mans deep clone // Note: Not recommended due to poor performance
+        // 'JSON.stringify(phil)' changes object to a string
+        console.log(" 'JSON.stringify(phil)' (changes an object to a string) = ", JSON.stringify(phil));
+        // Immediately JSON.parse it to turn back into an object
+        console.log(" 'JSON.parse(JSON.stringify(phil))' (changes the string back into an object) = ", JSON.parse(JSON.stringify(phil)));
     </script>
 
 </body>
