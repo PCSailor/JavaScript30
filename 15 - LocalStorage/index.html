@@ -27,23 +27,36 @@
         <!--add-items-->
         <!--When user submits this form, then will add an item-->
         <form class="add-items">
+            <!-- 'add-items' used extensively in JS-script-->
             <input type="text" name="item" placeholder="Item Name" required>
             <input type="submit" value="+ Add Item">
         </form>
     </div>
 
     <script>
-        const addItems = document.querySelector('.add-items');
+        const addItems = document.querySelector('.add-items'); // Note: '.add-items' points to form in HTML // 'addItems' has key listener below
         const itemsList = document.querySelector('.plates');
         const items = []; // will be storing all data in an array of objects which has name of the array and the status
 
-        function addItem(e) {
+        function addItem(e) { // activated by 'addItems' listener below
             console.log("function-addItem has been run");
             e.preventDefault(); // stops page from reloading or sending data to an external source
+            // take input box text and put it in a object
+            const text = (this.querySelector('[name=item]')).value // Note: created 'const-item' 1st // this points to the form tag (key: follow the addItem-addItems-.add-items route back to the form) // within that form, looks for a item with 'name' attribute (helpful with multpile forms on a page-don't want to be globally selecting-helps to narrow down the search inside of the one form working with.) // wrap 'this' to 'item]'' is paranthesis to be called first // call '.value' against it to give the input which is what user has typed)
+            const item = { // create a variable holding an item
+                // version: 01
+                // text: 'Item Name', // has property of text as item name
+                // version: 02
+                // text: text, // now that 'const text' is created, able to just use text instead of 'Item Name'
+                // version: 03
+                text, // ES6 shorthand property
+                done: false // has a done state of false
+            }; // by default will not be checked or named
+            console.log(item); // now that object is created, log the 'item', & view by entering data into form // result: Object {text: "entered-text", done: false}
+            this.reset(); // now clear the form element with built-in JS method called 'reset'
+        } // END of  'function addItem'
 
-        }
-
-        addItems.addEventListener('submit', addItem); // listen for a submit because that's what is actually needed, not a click // then run function addItem
+        addItems.addEventListener('submit', addItem); // listen for a submit because that's what is actually needed, not a click // then run function 'addItem'
     </script>
 
 
