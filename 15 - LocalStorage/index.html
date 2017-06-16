@@ -53,8 +53,33 @@
                 done: false // has a done state of false
             }; // by default will not be checked or named
             console.log(item); // now that object is created, log the 'item', & view by entering data into form // result: Object {text: "entered-text", done: false}
+            items.push(item); // take 'const-item' and put in 'items' array above
+            console.table(items); // inspect the items' array in table format
+
+            // once function populateList has been built, add this code:
+            populateList(items, itemsList); // now items are added into the HTML list
+
+
             this.reset(); // now clear the form element with built-in JS method called 'reset'
         } // END of  'function addItem'
+
+
+        // now need a second function to create the html list which need two things
+        // 1) a list of things to populate stored in the items array (consoleLog 'items' to see)
+        // 2) need a place to put the HTML
+        function populateList(plates = [], platesList) { // setting plates (can call this 'items' to keep variable named same as array) equal to an empty array because if forget to pass in something, will not break JavaScript, only loop over an array of nothing and 'Map' function will still work // platesList will have 'const itemsList' passed in
+            platesList.innerHTML = plates.map((plate, i) => { // loop over every item in array & map // Map takes in an array of raw data and return an array of some other data ( so will take in objects & return a string [reason for returning backticks])
+                // return some HTML
+                return ` 
+                    <li>    
+                    <label for="">${plate.text}</label>
+                    </li>
+                `;
+            }).join(''); // need .join because map will return an array but with the innerHTML we need one string, not multiple strings
+
+
+
+        }
 
         addItems.addEventListener('submit', addItem); // listen for a submit because that's what is actually needed, not a click // then run function 'addItem'
     </script>
