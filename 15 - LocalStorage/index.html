@@ -38,7 +38,9 @@
         const items = []; // will be storing all data in an array of objects which has name of the array and the status
 
         function addItem(e) {
-            console.log("function addItem run");
+            console.log("function-addItem has been run");
+            e.preventDefault(); // stops page from reloading or sending data to an external source
+
         }
 
         addItems.addEventListener('submit', addItem); // listen for a submit because that's what is actually needed, not a click // then run function addItem
