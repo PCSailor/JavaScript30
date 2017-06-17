@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-    <!--Lessons on local starage (14:53) and event delegation-->
+    <!--Lessons on local starage (start-14:53 & review-20:25) and event delegation (21:00)-->
     <meta charset="UTF-8">
     <title>LocalStorage</title>
     <link rel="stylesheet" href="style.css">
@@ -36,7 +36,10 @@
     <script>
         const addItems = document.querySelector('.add-items'); // Note: '.add-items' points to form in HTML // 'addItems' has key listener below
         const itemsList = document.querySelector('.plates');
-        const items = []; // will be storing all data in an array of objects which has name of the array and the status
+        // version: 01
+        // const items = []; // will be storing all data in an array of objects which has name of the array and the status
+        // version: 02
+        const items = JSON.parse(localStorage.getItem('items')) || []; // On page load checks local storage for data to populateList OR creates an empty array  // Key: This line retrieves data from the local storage and makes it available to populate the DOM/HTML (see populateList below)
 
         function addItem(e) { // activated by 'addItems' listener below
             console.log("function-addItem has been run");
@@ -58,8 +61,11 @@
 
             // once function populateList has been built, add this code:
             populateList(items, itemsList); // now items are added into the HTML list
-            // localStorage.setItem('items', JSON.stringify(items)); // see 'localStorage_Notes.md' for code explaination // 'items' from 'const items = [];'
-
+            localStorage.setItem('items', JSON.stringify(items)); // On webpage, when user adds an item it's put into local storage & updated everytime  // see 'localStorage_Notes.md' for code explaination // 'items' from 'const items = [];'
+            /* 
+                            JSON.stringify(sumElement) // changes to a string
+                            JSON.parse(sumElement) // changes to an object
+                            */
             this.reset(); // now clear the form element with built-in JS method called 'reset'
         } // END of  'function addItem'
 
@@ -74,14 +80,29 @@
                     <li>
                         <input type="checkbox" data-index=${i} id="item${i}" ${plate.done ? 'checked' : ''} /> <!-- // if plate attribute is done, set to checked, otherwise do nothing // any existance of the attribute 'checked' will check each item, so if has 'done', then set equal to false, if not, leave blank -->
                         <label for="item${i}">${plate.text}</label> <!-- // creates a list item with a label inside of it // With item{i}, when user clicks on label, the input will check itself Note: The 'id="item' is exactly the same as for="item -->
-                            </li>
+                    </li>
                 `;
             }).join(''); // need .join because map will return an array but with the innerHTML we need one string, not multiple strings
+        }
+
+        // event delegation (21:00 - big lesson - rewatch)
+        function toggleDone(e) { // (e) passes the event in
+
+
         }
 
 
 
         addItems.addEventListener('submit', addItem); // listen for a submit because that's what is actually needed, not a click // then run function 'addItem'
+
+        // The very last thing on page load needs to re-populate the list from the localStorage-string.  JSON.parse does this but this is not the spot for the parse-code-line ('JSON.parse(localStorage.getItem('items'))').  The correct spot is up at the creation of the 'items' variable in an OR statement.
+        populateList(items, itemsList); // 'items' does not yet exist on page load without the JSON.parse OR addition because than it is only an empty object
+
+        // next is to persist the toggle state
+        // One might cinsider to simply listen for a click on the toggle-checkboxes and when that happens, perform an action.  This code will do just that, listen for a checkbox-click and alert the message
+        const checkboxes = document.querySelectorAll('input'); // selects every input on the page
+        checkboxes.forEach(input => input.addEventListener('click', () => alert('checkbox was clicked')));
+        //
     </script>
 
 

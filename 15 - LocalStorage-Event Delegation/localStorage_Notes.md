@@ -23,3 +23,5 @@ localStorage.getItem('items')
 # Change to String or object
 JSON.stringify(sumElement) // changes to a string
 JSON.parse(sumElement) // changes to an object
+
+JSON.parse(localStorage.getItem('items'))
