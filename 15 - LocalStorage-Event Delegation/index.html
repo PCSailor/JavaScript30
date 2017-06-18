@@ -34,8 +34,10 @@
     </div>
 
     <script>
+        /* note: JSON.stringify(sumElement) // changes to a string
+                                                                                                                         JSON.parse(sumElement) // changes to an object */
         const addItems = document.querySelector('.add-items'); // Note: '.add-items' points to form in HTML // 'addItems' has key listener below
-        const itemsList = document.querySelector('.plates');
+        const itemsList = document.querySelector('.plates'); // this is the <ul> unordered list (itemsList)
         // version: 01
         // const items = []; // will be storing all data in an array of objects which has name of the array and the status
         // version: 02
@@ -62,17 +64,12 @@
             // once function populateList has been built, add this code:
             populateList(items, itemsList); // now items are added into the HTML list
             localStorage.setItem('items', JSON.stringify(items)); // On webpage, when user adds an item it's put into local storage & updated everytime  // see 'localStorage_Notes.md' for code explaination // 'items' from 'const items = [];'
-            /* 
-                            JSON.stringify(sumElement) // changes to a string
-                            JSON.parse(sumElement) // changes to an object
-                            */
             this.reset(); // now clear the form element with built-in JS method called 'reset'
         } // END of  'function addItem'
 
-        // now need a second function to create an array of objects, the html list, which needs two things:
+        // Next: now need a second function to create an array of objects, the html list, which needs two things:
         // 1) a list of things to populate stored in the items array (consoleLog 'items' to see)
         // 2) need a place to put the HTML
-
         function populateList(plates = [], platesList) { // setting plates (can call this 'items' to keep variable named same as array) equal to an empty array because if forget to pass in something, will not break JavaScript, only loop over an array of nothing and 'Map' function will still work // platesList will have 'const itemsList' passed in // Every time an item is created, this function re-creates entire list Note: To change just the one list item, it's time for Angular or React
             platesList.innerHTML = plates.map((plate, i) => { // loop over every item in array & map // Map takes in an array of raw data and return an array of some other data ( so will take in objects & return a string [reason for returning backticks])
                 // return some HTML
@@ -85,24 +82,31 @@
             }).join(''); // need .join because map will return an array but with the innerHTML we need one string, not multiple strings
         }
 
-        // event delegation (21:00 - big lesson - rewatch)
+        // event delegation (21:00 - big lesson - rewatch) // next is to persist the toggle state
         function toggleDone(e) { // (e) passes the event in
-
-
+            console.log('e =', e); // Results: two events logged because shows item & checkbox clicked
+            console.log('e.target =', e.target); // logs target of click showing item and checkbox
         }
 
-
-
         addItems.addEventListener('submit', addItem); // listen for a submit because that's what is actually needed, not a click // then run function 'addItem'
+        itemsList.addEventListener('click', toggleDone); // Listen for childrens input click // See Next: event delegation below
 
         // The very last thing on page load needs to re-populate the list from the localStorage-string.  JSON.parse does this but this is not the spot for the parse-code-line ('JSON.parse(localStorage.getItem('items'))').  The correct spot is up at the creation of the 'items' variable in an OR statement.
         populateList(items, itemsList); // 'items' does not yet exist on page load without the JSON.parse OR addition because than it is only an empty object
 
-        // next is to persist the toggle state
-        // One might cinsider to simply listen for a click on the toggle-checkboxes and when that happens, perform an action.  This code will do just that, listen for a checkbox-click and alert the message
-        const checkboxes = document.querySelectorAll('input'); // selects every input on the page
-        checkboxes.forEach(input => input.addEventListener('click', () => alert('checkbox was clicked')));
-        //
+        // Next: event delegation (21:00 - big lesson - rewatch) // next is to persist the toggle state
+        // There are alot of moving parts to this
+        // One might consider to simply listen for a click on the toggle-checkboxes and when that happens, perform an action.  This code will do just that, listen for a checkbox-click and alert the message
+        // If populateList is below these lines of code (querySelectorAll & addEventListener) there will be no list yet, so it must be above these 2 lines to populate the list first.
+        // But when you add additional inputs after page load, those inputs are created after the eventListener is run, so they do not have eventListeners attached to them
+        // Key: The idea behind Event Delegation is rather then listening for a click or change on individual elements (these checkboxes), look for another element that will be on the page at the time of listening.
+        // Look within the HTML at the <ul> which holds all the inputs and checkboxes
+        // Listen for a click on <ul class="plates"> and than determine if click was on something inside the <ul>
+        // Think of Event Delagation as 'responsible parent' with 'negligent children who don't know what to do with  instructions', so the parent must tell them what to do.
+        // So we're saying, "Hey plates, when your children-inputs get clicked, please pass this click on to them?
+        // So these two lines are not used and we listen for the click on the unordered list above.
+        // const checkboxes = document.querySelectorAll('input'); // selects every input on the page
+        // checkboxes.forEach(input => input.addEventListener('click', () => alert('checkbox was clicked')));
     </script>
 
 
