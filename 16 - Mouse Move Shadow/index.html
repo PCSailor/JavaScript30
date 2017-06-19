@@ -36,6 +36,25 @@
 
 <script>
 console.log("JavaScript is running");
+const hero = document.querySelector('hero');
+const text = hero.querySelector('h1');
+
+function shadow(e) {
+console.log('e =', e)
+// Version: 01
+const width = hero.offsetWidth; // need width of object mouse is hovering over
+const height = hero.offsetHeight; // need height of object mouse is hovering over
+// Version: 02
+const { offsetHeight = height, offsetWidth = width } = hero;
+
+let { offsetX = x, offsetY = y } = e;
+
+
+}
+
+hero.addEventListener('mousemove', shadow);
+
+
 
 </script>
 </body>
