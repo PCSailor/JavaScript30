@@ -1,0 +1,19 @@
+{
+  "name": "javascript30",
+  "version": "1.0.0",
+  "description": "Wes Bos' JavaScript 30 Course Code",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/PCSailor/JavaScript30.git"
+  },
+  "author": "philip curtis",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/PCSailor/JavaScript30/issues"
+  },
+  "homepage": "https://github.com/PCSailor/JavaScript30#readme"
+}

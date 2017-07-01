@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!--Originally called '11 - Custom Video Player'-->
+    <meta charset="UTF-8">
+    <title>HTML Video Player</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <!--you need to have a valid mp4 . - which is what I have there. I pay extra to vimeo to host the mp4s, most vimeo videos wont work-->
+    <!--Video player plus file-->
+    <div class="player">
+        <!--original-->
+        <!--<video class="player__video viewer" src="https://player.vimeo.com/external/194837908.sd.mp4?s=c350076905b78c67f74d7ee39fdb4fef01d12420&profile_id=164"></video>-->
+        <!--original-->
+
+        <!--<video class="player__video viewer" src="C:\Users\PC\Desktop\NowThis-children-disabilities-waterpark.mp4"></video>  NOT WORKING -->
+
+        <!--<video class="player__video viewer" src="https://www.facebook.com/NowThisNews/videos/1479694585453994/"></video>  NOT WORKING -->
+
+        <!--<iframe class="player__video viewer" src="https://player.vimeo.com/video/120959211" width="640" height="360" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe> -->
+
+
+        <!--<iframe class="player__video viewer" src="https://player.vimeo.com/video/120959211"> </iframe> NOT WORKING-->
+
+
+        <!--<video class="player__video viewer" src="https://player.vimeo.com/120959211.mp4?"> </video> NOT WORKING-->
+
+
+        <!--<video class="player__video viewer" src="https://www.youtube.com/embed/Rho9LKdq2io?ecver=1"</video>  NOT WORKING -->
+
+        <!--<video class="player__video viewer" src="<iframe width="1280" height="590" src="https://www.youtube.com/embed/Rho9LKdq2io?ecver=1" frameborder="0" allowfullscreen></iframe>"</video>  NOT WORKING -->
+
+        <!--https://www.w3schools.com/html/html5_video.asp-->
+        <video width="640" height="640">
+            <source src="C:\Users\PC\Desktop\NowThis-children-disabilities-waterpark.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+        <!--player controls do not work and no video plays-->
+
+
+
+
+
+
+
+
+
+
+        <!-- ...164"  autoplay></video> adds autoplaying video -->
+
+        <!--HTML built for video player controls-->
+        <div class="player__controls">
+            <div class="progress">
+                <!--progress bar-->
+                <div class="progress__filled"></div>
+            </div>
+
+            <button class="player__button toggle" title="Toggle Play">►</button>
+            <!--play button-->
+
+            <!--sliders for play and playback rate with Min, Max, & Step=how much will increment each slider notch-->
+            <input type="range" name="volume" class="player__slider" min="0" max="1" step="0.05" value="1">
+            <!--slider input-->
+            <input type="range" name="playbackRate" class="player__slider" min="0.5" max="2" step="0.1" value="1">
+            <!--playback rate-->
+
+            <!--skip buttons-->
+            <button data-skip="-10" class="player__button">« 10s</button>
+            <button data-skip="25" class="player__button">25s »</button>
+        </div>
+    </div>
+
+    <script src="scripts.js"></script>
+    <!--<script src="scripts-FINISHED.js"></script>-->
+</body>
+
+</html>
